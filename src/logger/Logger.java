@@ -18,13 +18,11 @@ public class Logger {
 		funcName = func;
 		targetFile = logfile;
 		fileMode = "append";
-		
-		//create file , String mode
 	}
 		
-	public void append_message(String message, LogLevels log) {
+	private void append_message(String message, LogLevels log) {
 		
-		System.out.println("Compare "+ logLevel.compareTo(log));
+		//if the log level is smaller or equal to 
 		if(logLevel.compareTo(log) >= 0) {
 			
 		    FileCreation f = new FileCreation();
@@ -67,8 +65,7 @@ public class Logger {
 		
 	}
 	
-	
-	public void info(String message) { //formatted string
+	public void info(String message) { 
 		append_message(message, LogLevels.INFO);
 	}
 	

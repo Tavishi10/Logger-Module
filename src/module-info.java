@@ -6,4 +6,5 @@
  *
  */
 module Logger_module {
+	requires junit;
 }
