@@ -3,8 +3,8 @@ package logger;
 import java.io.File;
 
 public class FileCreation {
-	//private long maxSize = 5*1024*1024;
-	private long maxSize = 1*1024;
+	private long maxSize = 5*1024*1024;
+	//private long maxSize = 1*1024;
 	private int maxFiles = 10;
 	
 	public long maxSize() {
