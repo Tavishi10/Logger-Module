@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		LogLevels level = LogLevels.ERROR;
-		String file, func, logfile, mode;
+		String file, func, logfile;
 		Scanner sc = new Scanner(System.in);
 		 
         // String input
@@ -16,9 +16,9 @@ public class Main {
         file = sc.nextLine();
         func = sc.nextLine();
         logfile = sc.nextLine();
-        mode = sc.nextLine();
+        //mode = sc.nextLine();
  
-		Logger log = new Logger(level, file, func, logfile, mode);
+		Logger log = new Logger(level, file, func, logfile);
 		log.error("ERROR LOG: ERROR ENCOUNTERED during program execution");
 		log.info("Logs info");
 		log.debug("Default mode");
