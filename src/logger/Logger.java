@@ -12,35 +12,24 @@ public class Logger {
 	private File file;
 	private String fileMode;
 		
-	public Logger(LogLevels level, String file, String func, String logfile, String mode) {
+	public Logger(LogLevels level, String file, String func, String logfile) {
 		logLevel = level;
 		sourceFile = file;
 		funcName = func;
 		targetFile = logfile;
-		fileMode = mode;
+		fileMode = "append";
+		
+		//create file , String mode
 	}
 		
 	public void append_message(String message, LogLevels log) {
-		//File object creation and open in given mode
-		//check level => logLevel >= log level of object => print in file
-		//print in given 
+		
 		System.out.println("Compare "+ logLevel.compareTo(log));
 		if(logLevel.compareTo(log) >= 0) {
-			file = new File(targetFile);
-
-		    try {
-		      boolean value = file.createNewFile();
-		      if (value) {
-		        System.out.println("The new file is created.");
-		      }
-		      else {
-		        System.out.println("The file already exists.");
-		      }
-		    }
-		    catch(Exception e) {
-		      e.getStackTrace();
-		    }
-		    
+			
+		    FileCreation f = new FileCreation();
+		    file = f.getCurrFile(targetFile, message);
+			
 		    //generate the complete log message
 		    Date d1 = new Date();
 		    String data = String.format("%s      %s      %s      %s      %s\n", d1, log, sourceFile, funcName, message);
@@ -79,7 +68,7 @@ public class Logger {
 	}
 	
 	
-	public void info(String message) {
+	public void info(String message) { //formatted string
 		append_message(message, LogLevels.INFO);
 	}
 	
