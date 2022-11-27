@@ -6,6 +6,8 @@ import java.util.Date;
 import java.io.*;
 import org.junit.Test;
 
+
+//Test cases for the Logger Class
 public class LoggerTests {
 	//initialize object for class logger
 	Logger logger = new Logger(LogLevels.ERROR, "LoggerTests", "logfunc", "LogTest");

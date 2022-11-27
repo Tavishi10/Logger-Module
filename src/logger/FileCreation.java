@@ -5,7 +5,7 @@ import java.io.File;
 public class FileCreation {
 	//private long maxSize = 5*1024*1024;
 	private long maxSize = 1*1024;
-	private int maxFiles = 1;
+	private int maxFiles = 10;
 	
 	public long maxSize() {
 		return maxSize;
@@ -15,81 +15,89 @@ public class FileCreation {
 		return maxFiles;
 	}
 	
-	
+	//function which returns file object in which the log will be appended
 	public File getCurrFile(String filename, String message) {
-		System.out.println("In get Currentfile func");
+		//Object which points to the first file 'file.1.txt'
 		File file = new File(filename + "." + 1 + ".txt");
 		
+		//if the file exists
 		if(file.exists()) {
-			System.out.println("If file 1 exists");
-			System.out.println(file.length() + message.getBytes().length);
-			System.out.println(maxSize());
+			
+			//check if the size of the file.1 and new log together is > maxSize
 			if((file.length() + message.getBytes().length) > maxSize())
 			{
-				System.out.println("File size will be greater so rotate");
+				//the size is greater so rotate the files
 				file = rotateFiles(filename);
 			}
 		}
 		else {
-			try {
-				System.out.println("If file 1 does not exist, create new file 1");
-				boolean value = file.createNewFile();
-			    if (value) {
-			       System.out.println("The new file is created.");
-			    }
-			    else {
-			       System.out.println("The file already exists.");
-			    }
-			}
-			    
-			catch(Exception e) {
-			    e.getStackTrace();
-			}
+			//File.1 doesn't exist => create new file
+			file = createFile(file);
 		}
 		
 		return file;
 	}
 	
+	
+	//function to rotate the log files
 	public File rotateFiles(String filename) {
-		System.out.println("Inside rotation");
+
 		int fileno = 10;
 		File target;
 		File file = new File("");
 		
+		//loop till file no is greater than equal to 1 
 		while(fileno >= 1 ) {
-			System.out.println(fileno);
+		
+			//Initialize with the format File.fileno eg File.10.txt .... to File.1.txt
 			file = new File(filename + "." + fileno + ".txt");
+			
+			
 			if(fileno == 10 && file.exists()) {
 				//delete the 10th file
 				file.delete();
-				System.out.println("10th file deleted");
 			}
-			else if(file.exists() ){
-				System.out.println("File "+ fileno + "present");
+			
+			else if(file.exists()){
+				//if the other files exist
+				
+				//Initialize with the new name to be assigned ie. fileno+1 to rotate
 				target = new File(filename + "." + (fileno + 1) + ".txt");
+				
+				//rename the file
 				file.renameTo(target);
-				System.out.println("Renamed to " + (fileno+1));
+				
 				
 				if(fileno == 1)
 				{
-					try {
-					    boolean value = file.createNewFile();
-					    if (value) {
-					       System.out.println("The new file is created.");
-					    }
-					    else {
-					       System.out.println("The file already exists.");
-					    }
-					}
-					    
-					catch(Exception e) {
-					    e.getStackTrace();
-					}
+					//if the fileno is 1 create a new file because there will be no existing file with .1 suffix as all the files have been renamed
+					file = createFile(file);
 				}
 			}
-			fileno--;
+			fileno--; //decrement fileno
 		}
 		return file;
 		
 	}	
+	
+	
+	//function which creates a new file
+	public File createFile(File file) {
+		try {
+			
+			boolean value = file.createNewFile();
+			
+		    if (value) {
+		       System.out.println("The new file is created.");
+		    }
+		    else {
+		       System.out.println("The file already exists.");
+		    }
+		}
+		    
+		catch(Exception e) {
+		    e.getStackTrace();
+		}
+		return file;
+	}
 }
