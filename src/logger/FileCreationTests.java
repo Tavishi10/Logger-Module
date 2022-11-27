@@ -29,7 +29,7 @@ public class FileCreationTests {
 			{
 				filecount++;
 				
-				if(logFile.length() <= file.maxSize())
+				if(logFile.length() <= (1*1024))
 					idealfilesize++;
 			}
 		}
