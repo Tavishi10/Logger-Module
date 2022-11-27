@@ -6,7 +6,7 @@ import java.util.*;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		LogLevels level = LogLevels.ERROR;
 		String file, func, logfile;
 		Scanner sc = new Scanner(System.in);
